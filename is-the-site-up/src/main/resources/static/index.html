@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Status Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Check if a Website is Up or Down</h1>
+    
+    <form id="urlForm">
+        <input type="text" id="urlInput" placeholder="Enter URL" required />
+        <br>
+        <button type="submit">Check Status</button>
+    </form>
+
+    <div class="result" id="resultMessage"></div>
+
+    <script>
+        // Select the form and result message container
+        const urlForm = document.getElementById('urlForm');
+        const resultMessage = document.getElementById('resultMessage');
+
+        // Add event listener for form submission
+        urlForm.addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent the form from reloading the page
+
+            // Get the URL input from the user
+            const urlInput = document.getElementById('urlInput').value;
+
+            // Make a GET request to the Spring Boot backend
+            fetch(`/check?url=${encodeURIComponent(urlInput)}`)
+                .then(response => response.text())  // Parse the response as text
+                .then(data => {
+                    // Display the result message returned by the backend
+                    resultMessage.innerHTML = `Result: ${data}`;
+                })
+                .catch(error => {
+                    // Display error message in case of a fetch error
+                    resultMessage.innerHTML = `Error: Unable to check the URL status.`;
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+
+</body>
+</html>
