@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-IsTheSiteUpApplication<is-the-site-up>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.hassan.is_the_site_up.IsTheSiteUpApplication",
+            "projectName": "is-the-site-up",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
